@@ -6,7 +6,7 @@
 
 <br>
 
-🔗 [**Launch InstaSplice Studio**](#) *(Vercel link coming soon!)*
+🔗 [**Launch InstaSplice Studio**](https://instasplice.vercel.app)
 
 </div>
 
@@ -35,12 +35,7 @@ InstaSplice/
 ├── fiveserver.config.cjs
 ├── assets/
 │   ├── img/
-│   │   ├── InstaSplice.svg
-│   │   ├── wired-gradient-2626-logo-circle-instagram-hover-pinch.gif
-│   │   ├── wired-gradient-54-photo-hover-pinch.gif
-│   │   ├── wired-gradient-12-layers-hover-squeeze.gif
-│   │   ├── wired-gradient-298-coins-hover-spending.gif
-│   │   └── wired-gradient-20-love-heart-hover-heartbeat.gif
+│   │   └── InstaSplice.svg
 │   └── icons/
 │       └── wired-*.json
 ```
