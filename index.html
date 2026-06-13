@@ -15,6 +15,7 @@
             --text-muted: #a1a1aa;
             --primary: #a855f7;
             --secondary: #ec4899;
+            --warning: #ef4444;
         }
 
         * {
@@ -36,7 +37,6 @@
             position: relative;
         }
 
-        /* Subtle background glow */
         body::before {
             content: '';
             position: fixed;
@@ -59,7 +59,6 @@
             transform: translateY(0);
         }
 
-        /* --- THE HEADER --- */
         .header-container {
             position: relative;
             width: 100%; 
@@ -72,28 +71,22 @@
             justify-content: center;
         }
 
-        .header-container h1, 
-        .header-container p {
-            position: relative;
-            z-index: 2; 
+        .header-container h1, .header-container p {
+            position: relative; z-index: 2; 
         }
 
         .scrolling-bg-wrapper {
             position: absolute;
             top: 0; left: 0; right: 0; bottom: 0;
             overflow: hidden;
-            z-index: 0;
-            pointer-events: none;
-            /* FIXED FADE: Reaches pure transparency at 85%, ensuring zero boundary lines */
+            z-index: 0; pointer-events: none;
             -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 30%, rgba(0,0,0,0) 85%);
             mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 30%, rgba(0,0,0,0) 85%);
         }
 
         .scrolling-bg {
             position: absolute;
-            top: 0; left: 0;
-            width: 200vw; 
-            height: 100%; 
+            top: 0; left: 0; width: 200vw; height: 100%; 
             background-image: url('./assets/img/InstaSplice.png');
             background-repeat: repeat; 
             background-size: 1600px auto; 
@@ -109,392 +102,131 @@
         }
 
         h1 {
-            font-size: 3.5rem;
-            font-weight: 800;
-            letter-spacing: -0.05em;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
+            font-size: 3.5rem; font-weight: 800; letter-spacing: -0.05em;
+            display: flex; align-items: center; justify-content: center; gap: 8px;
             background: linear-gradient(to right, #ffffff 40%, var(--text-muted));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
             margin-bottom: 12px;
         }
 
-        p.subtitle {
-            color: var(--text-muted);
-            font-size: 1.1rem;
-            line-height: 1.5;
-        }
+        p.subtitle { color: var(--text-muted); font-size: 1.1rem; line-height: 1.5; }
 
         .container {
-            width: 100%;
-            max-width: 1200px;
-            padding: 0 24px 60px; 
-            z-index: 10;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 60px;
+            width: 100%; max-width: 1200px; padding: 0 24px 60px; z-index: 10;
+            display: flex; flex-direction: column; align-items: center; gap: 60px;
         }
 
-        .card {
-            background: var(--card-bg);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 40px;
-            width: 100%;
-            max-width: 600px;
-            backdrop-filter: blur(12px);
-            position: relative;
-            overflow: hidden;
-            transition: border-color 0.3s ease, box-shadow 0.3s ease;
-            margin-top: -80px; 
+        .card, .feature-box, .about-author {
+            background: var(--card-bg); border: 1px solid var(--border);
+            border-radius: 16px; backdrop-filter: blur(12px);
+            position: relative; overflow: hidden;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
         }
 
+        .card { padding: 40px; width: 100%; max-width: 600px; margin-top: -80px; }
+        
         .mouse-glow-layer {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
+            content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
             background: radial-gradient(800px circle at var(--mouse-x, 0) var(--mouse-y, 0), rgba(255, 255, 255, 0.05), transparent 40%);
-            z-index: 0;
-            pointer-events: none;
+            z-index: 0; pointer-events: none;
         }
 
-        .card:hover {
-            border-color: var(--border-hover);
-            box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.7);
-        }
-
-        .card > *:not(.mouse-glow-layer) {
-            position: relative;
-            z-index: 1;
-        }
+        .card:hover { border-color: var(--border-hover); box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.7); }
+        .card > *:not(.mouse-glow-layer), .about-author > *:not(.mouse-glow-layer) { position: relative; z-index: 1; }
 
         .upload-zone {
-            border: 2px dashed var(--border);
-            border-radius: 12px;
-            padding: 40px 20px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-            background: rgba(0, 0, 0, 0.2);
-            margin-bottom: 24px;
+            border: 2px dashed var(--border); border-radius: 12px; padding: 40px 20px;
+            text-align: center; cursor: pointer; transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            background: rgba(0, 0, 0, 0.2); margin-bottom: 24px;
         }
+        .upload-zone:hover { border-color: var(--primary); background: rgba(168, 85, 247, 0.03); transform: scale(1.01); }
+        .upload-zone p { color: var(--text-muted); font-size: 0.95rem; margin-top: 12px; }
 
-        .upload-zone:hover {
-            border-color: var(--primary);
-            background: rgba(168, 85, 247, 0.03);
-            transform: scale(1.01);
-        }
-
-        .upload-zone p {
-            color: var(--text-muted);
-            font-size: 0.95rem;
-            margin-top: 12px;
-        }
-
-        .file-info {
-            display: none;
-            font-size: 0.85rem;
-            color: var(--primary);
-            font-weight: 600;
-            margin-top: 8px;
-            letter-spacing: 0.05em;
-        }
-
-        .settings-group {
-            margin-bottom: 24px;
-            text-align: left;
-        }
-
-        label {
-            display: block;
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            color: var(--text-muted);
-            margin-bottom: 8px;
-            font-weight: 600;
-        }
-
-        select, input[type="number"] {
-            width: 100%;
-            background: rgba(0, 0, 0, 0.4);
-            border: 1px solid var(--border);
-            padding: 14px 16px;
-            border-radius: 8px;
-            color: #fff;
-            font-size: 0.95rem;
-            outline: none;
-            transition: border-color 0.2s;
-        }
-
-        select:focus, input[type="number"]:focus {
-            border-color: var(--primary);
-        }
-
-        /* Added layout logic for the new slice count field */
-        .custom-dims, .slice-count-div {
-            display: none;
-            margin-top: 12px;
-        }
+        .file-info { display: none; font-size: 0.85rem; color: var(--primary); font-weight: 600; margin-top: 8px; letter-spacing: 0.05em; }
         
-        .custom-dims {
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
+        /* NEW ANALYZER UI */
+        .optimal-splices {
+            display: none; font-size: 0.85rem; color: var(--text); font-weight: 600;
+            margin-top: 12px; padding: 8px; background: rgba(255, 255, 255, 0.05);
+            border-radius: 6px; border: 1px solid var(--border); text-align: center;
         }
+
+        .warning-msg {
+            display: none; color: var(--warning); font-size: 0.8rem; font-weight: 600;
+            margin-top: 12px; padding: 10px; background: rgba(239, 68, 68, 0.1);
+            border-radius: 6px; border: 1px solid rgba(239, 68, 68, 0.3); text-align: center;
+        }
+
+        .settings-group { margin-bottom: 24px; text-align: left; }
+        label { display: block; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-muted); margin-bottom: 8px; font-weight: 600; }
+        select, input[type="number"] { width: 100%; background: rgba(0, 0, 0, 0.4); border: 1px solid var(--border); padding: 14px 16px; border-radius: 8px; color: #fff; font-size: 0.95rem; outline: none; transition: border-color 0.2s; }
+        select:focus, input[type="number"]:focus { border-color: var(--primary); }
+
+        .custom-dims, .grid-dims, .slice-count-div { display: none; gap: 12px; margin-top: 12px; }
+        .custom-dims, .grid-dims { grid-template-columns: 1fr 1fr; }
 
         .btn-slice {
-            width: 100%;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
-            border: none;
-            padding: 16px;
-            font-size: 1rem;
-            font-weight: 700;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            box-shadow: 0 4px 20px rgba(168, 85, 247, 0.3);
-            position: relative;
-            overflow: hidden;
+            width: 100%; background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white; border: none; padding: 16px; font-size: 1rem; font-weight: 700;
+            border-radius: 8px; cursor: pointer; transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 4px 20px rgba(168, 85, 247, 0.3); position: relative; overflow: hidden;
         }
-
-        .btn-slice:hover {
-            transform: translateY(-2px) scale(1.02);
-            box-shadow: 0 8px 25px rgba(168, 85, 247, 0.5);
-        }
-
+        .btn-slice:hover { transform: translateY(-2px) scale(1.02); box-shadow: 0 8px 25px rgba(168, 85, 247, 0.5); }
         .btn-slice::before {
-            content: '';
-            position: absolute;
-            top: 0; left: -100%; width: 100%; height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            transition: all 0.6s;
+            content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent); transition: all 0.6s;
         }
+        .btn-slice:hover::before { left: 100%; }
+
+        #statusMsg { text-align: center; font-size: 0.9rem; color: var(--text-muted); margin-top: 20px; }
+        #outputGallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 12px; margin-top: 24px; }
         
-        .btn-slice:hover::before {
-            left: 100%;
-        }
-
-        #statusMsg {
-            text-align: center;
-            font-size: 0.9rem;
-            color: var(--text-muted);
-            margin-top: 20px;
-        }
-
-        #outputGallery {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-            gap: 12px;
-            margin-top: 24px;
-        }
-
         .gallery-item {
-            border: 1px solid var(--border);
-            border-radius: 6px;
-            overflow: hidden;
-            background: #000;
-            animation: fadeIn 0.4s ease forwards;
-            opacity: 0;
-            transform: translateY(10px);
-            cursor: pointer;
-            transition: transform 0.2s, border-color 0.2s;
+            border: 1px solid var(--border); border-radius: 6px; overflow: hidden; background: #000;
+            animation: fadeIn 0.4s ease forwards; opacity: 0; transform: translateY(10px); cursor: pointer; transition: transform 0.2s, border-color 0.2s;
         }
+        .gallery-item:hover { transform: translateY(-4px) scale(1.02); border-color: var(--primary); }
+        .gallery-item img { width: 100%; display: block; height: auto; }
 
-        .gallery-item:hover {
-            transform: translateY(-4px) scale(1.02);
-            border-color: var(--primary);
-        }
+        .features-section { width: 100%; margin-top: 20px; text-align: center; }
+        .features-section h2 { font-size: 2rem; margin-bottom: 32px; color: #fff; }
+        .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 24px; width: 100%; }
+        .feature-box { padding: 32px 24px; text-align: center; cursor: default; }
+        .feature-box:hover { border-color: var(--border-hover); transform: translateY(-4px); }
+        .feature-box lord-icon { opacity: 0.8; transition: opacity 0.3s ease; }
+        .feature-box:hover lord-icon { opacity: 1; }
+        .feature-box h3 { font-size: 1.2rem; color: #fff; margin: 16px 0 12px; }
+        .feature-box p { color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; }
 
-        .gallery-item img {
-            width: 100%;
-            display: block;
-            height: auto;
-        }
+        .about-author { padding: 40px; text-align: center; max-width: 800px; width: 100%; }
+        .about-author:hover { border-color: var(--border-hover); transform: translateY(-4px); }
+        .about-author h2 { font-size: 2rem; margin-bottom: 20px; color: #fff; }
+        .about-author p { color: var(--text-muted); line-height: 1.7; font-size: 1.05rem; }
+        .highlight { color: var(--primary); font-weight: 600; }
 
-        .features-section {
-            width: 100%;
-            margin-top: 20px;
-            text-align: center;
-        }
-        
-        .features-section h2 {
-            font-size: 2rem;
-            margin-bottom: 32px;
-            color: #fff;
-        }
-
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 24px;
-            width: 100%;
-        }
-
-        .feature-box {
-            background: rgba(24, 24, 27, 0.4);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 32px 24px;
-            text-align: center;
-            backdrop-filter: blur(12px);
-            position: relative;
-            overflow: hidden;
-            transition: border-color 0.3s ease, transform 0.3s ease;
-            cursor: default;
-        }
-
-        .feature-box:hover {
-            border-color: var(--border-hover);
-            transform: translateY(-4px);
-        }
-
-        .feature-box lord-icon {
-            opacity: 0.8;
-            transition: opacity 0.3s ease;
-        }
-        
-        .feature-box:hover lord-icon {
-            opacity: 1;
-        }
-
-        .feature-box h3 {
-            font-size: 1.2rem;
-            color: #fff;
-            margin: 16px 0 12px;
-        }
-
-        .feature-box p {
-            color: var(--text-muted);
-            font-size: 0.95rem;
-            line-height: 1.6;
-        }
-
-        .about-author {
-            background: rgba(24, 24, 27, 0.4);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 40px;
-            text-align: center;
-            max-width: 800px;
-            width: 100%;
-            backdrop-filter: blur(12px);
-            position: relative;
-            overflow: hidden;
-            transition: border-color 0.3s ease, transform 0.3s ease; 
-        }
-
-        .about-author:hover {
-            border-color: var(--border-hover);
-            transform: translateY(-4px); 
-        }
-
-        .about-author > *:not(.mouse-glow-layer) {
-            position: relative;
-            z-index: 1;
-        }
-
-        .about-author h2 {
-            font-size: 2rem;
-            margin-bottom: 20px;
-            color: #fff;
-        }
-
-        .about-author p {
-            color: var(--text-muted);
-            line-height: 1.7;
-            font-size: 1.05rem;
-        }
-
-        .highlight {
-            color: var(--primary);
-            font-weight: 600;
-        }
-
-        footer {
-            margin-top: 10px;
-            margin-bottom: 40px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 20px;
-        }
-
+        footer { margin-top: 10px; margin-bottom: 40px; display: flex; flex-direction: column; align-items: center; gap: 20px; }
         .social-box {
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            padding: 16px 32px;
-            border-radius: 100px;
-            display: flex;
-            gap: 24px;
-            align-items: center;
-            justify-content: center;
-            backdrop-filter: blur(16px);
-            position: relative;
-            overflow: hidden;
-            transition: border-color 0.3s ease;
+            background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.05); padding: 16px 32px; border-radius: 100px;
+            display: flex; gap: 24px; align-items: center; justify-content: center; backdrop-filter: blur(16px); position: relative; overflow: hidden; transition: border-color 0.3s ease;
         }
-
         .social-box::after {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
+            content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
             background: radial-gradient(150px circle at var(--mouse-x, 0) var(--mouse-y, 0), rgba(168, 85, 247, 0.15), transparent 60%);
-            z-index: 0;
-            pointer-events: none;
-            opacity: 0;
-            transition: opacity 0.3s;
+            z-index: 0; pointer-events: none; opacity: 0; transition: opacity 0.3s;
         }
+        .social-box:hover::after { opacity: 1; }
+        .social-link { position: relative; z-index: 1; text-decoration: none; display: flex; align-items: center; justify-content: center; }
+        .credits { font-size: 0.75rem; color: rgba(161, 161, 170, 0.5); text-decoration: none; transition: color 0.2s; }
+        .credits:hover { color: var(--text-muted); }
 
-        .social-box:hover::after {
-            opacity: 1;
-        }
-
-        .social-link {
-            position: relative;
-            z-index: 1;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .credits {
-            font-size: 0.75rem;
-            color: rgba(161, 161, 170, 0.5);
-            text-decoration: none;
-            transition: color 0.2s;
-        }
-
-        .credits:hover {
-            color: var(--text-muted);
-        }
-
-        @keyframes fadeIn {
-            to { opacity: 1; transform: translateY(0); }
-        }
+        @keyframes fadeIn { to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body>
 
     <header class="fade-up header-container">
-        <div class="scrolling-bg-wrapper">
-            <div class="scrolling-bg"></div>
-        </div>
-
-        <h1>
-            Insta 
-            <lord-icon
-                src="./assets/icons/wired-gradient-2626-logo-circle-instagram-hover-pinch.json"
-                trigger="loop"
-                style="width:55px;height:55px; margin-top: -2px;">
-            </lord-icon>
-            Splice
-        </h1>
+        <div class="scrolling-bg-wrapper"><div class="scrolling-bg"></div></div>
+        <h1>Insta <lord-icon src="./assets/icons/wired-gradient-2626-logo-circle-instagram-hover-pinch.json" trigger="loop" style="width:55px;height:55px; margin-top: -2px;"></lord-icon> Splice</h1>
         <p class="subtitle">Lossless Image Splicer Engine for Instagram, and Other Images.</p>
     </header>
 
@@ -502,36 +234,41 @@
         <main class="card fade-up interactive-box">
             <div class="mouse-glow-layer"></div>
             
-            <div class="upload-zone" onclick="document.getElementById('imageInput').click()">
+            <div class="upload-zone" id="dropZone">
                 <input type="file" id="imageInput" accept="image/*" style="display: none;">
                 <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="color: var(--primary)"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
                 <p id="uploadPrompt">Drop your image here<br>or click to browse</p>
                 <div class="file-info" id="fileInfo">READY // DIMENSIONS ASSEMBLED</div>
+                <div class="optimal-splices" id="optimalSplices">Optimal number of splices: --</div>
             </div>
 
             <div class="settings-group">
                 <label>Target Image Splice Format</label>
-                <select id="sizePreset" onchange="toggleCustomDims()">
+                <select id="sizePreset" onchange="toggleInputs()">
                     <option value="ig-portrait">Instagram Portrait (1080 × 1350 px)</option>
                     <option value="ig-square">Instagram Square (1080 × 1080 px)</option>
-                    <option value="custom">Custom Dimensions (W × H)</option>
                     <option value="by-count">Divide by Number of Slices</option>
+                    <option value="custom">Custom Dimension Matrix</option>
+                    <option value="grid">Grid Cut (Rows & Columns)</option>
                 </select>
                 
                 <div class="custom-dims" id="customDims">
-                    <div>
-                        <label>Width (px)</label>
-                        <input type="number" id="customW" value="1080">
-                    </div>
-                    <div>
-                        <label>Height (px)</label>
-                        <input type="number" id="customH" value="1350">
-                    </div>
+                    <div><label>Output Width (px)</label><input type="number" id="customW" value="1080" oninput="analyzeImage()"></div>
+                    <div><label>Output Height (px)</label><input type="number" id="customH" value="1350" oninput="analyzeImage()"></div>
                 </div>
 
                 <div class="slice-count-div" id="sliceCountDiv">
                     <label>Total Number of Slices</label>
-                    <input type="number" id="sliceCount" value="2" min="1">
+                    <input type="number" id="sliceCount" value="2" min="1" oninput="analyzeImage()">
+                </div>
+
+                <div class="grid-dims" id="gridDims">
+                    <div><label>Columns (Horizontal)</label><input type="number" id="gridCols" value="2" min="1" oninput="analyzeImage()"></div>
+                    <div><label>Rows (Vertical)</label><input type="number" id="gridRows" value="2" min="1" oninput="analyzeImage()"></div>
+                </div>
+
+                <div class="warning-msg" id="dimensionWarning">
+                    CAUTION! Current selection does not evenly match the dimensions of the input image.
                 </div>
             </div>
 
@@ -544,35 +281,30 @@
         <section class="features-section fade-up">
             <h2>Why InstaSplice?</h2>
             <div class="features-grid">
-                
                 <div class="feature-box interactive-box feature-trigger">
                     <div class="mouse-glow-layer"></div>
                     <lord-icon src="./assets/icons/wired-gradient-54-photo-hover-pinch.json" trigger="hover" style="width:60px;height:60px"></lord-icon>
                     <h3>Seamless Editing</h3>
                     <p>Designed to maintain absolute high-fidelity rendering. Your graphics are perfectly scaled and cropped without any loss in original resolution, keeping typography crisp.</p>
                 </div>
-
                 <div class="feature-box interactive-box feature-trigger">
                     <div class="mouse-glow-layer"></div>
                     <lord-icon src="./assets/icons/wired-gradient-12-layers-hover-squeeze.json" trigger="hover" style="width:60px;height:60px"></lord-icon>
                     <h3>Easy Splicing</h3>
                     <p>No heavy design tools required. Instantly divide massively wide panoramic exports into perfect, seamless panels tailored for Instagram's carousel requirements.</p>
                 </div>
-
                 <div class="feature-box interactive-box feature-trigger">
                     <div class="mouse-glow-layer"></div>
                     <lord-icon src="./assets/icons/wired-gradient-298-coins-hover-spending.json" trigger="hover" style="width:60px;height:60px"></lord-icon>
                     <h3>Totally Free</h3>
                     <p>A completely client-side architecture. Everything is processed directly inside your browser. No server uploads, zero cost, and strict absolute data privacy.</p>
                 </div>
-
                 <div class="feature-box interactive-box feature-trigger">
                     <div class="mouse-glow-layer"></div>
                     <lord-icon src="./assets/icons/wired-gradient-20-love-heart-hover-heartbeat-alt.json" trigger="hover" style="width:60px;height:60px"></lord-icon>
                     <h3>Support Me</h3>
                     <p>Built with passion. If this tool optimized your workflow, consider sharing it with other creatives, or drop a star on the open-source GitHub repository below.</p>
                 </div>
-
             </div>
         </section>
 
@@ -604,9 +336,7 @@
         const observerOptions = { root: null, rootMargin: '0px', threshold: 0.15 };
         const observer = new IntersectionObserver((entries, observer) => {
             entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
+                if (entry.isIntersecting) { entry.target.classList.add('visible'); }
             });
         }, observerOptions);
         document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
@@ -615,10 +345,8 @@
         document.querySelectorAll('.interactive-box').forEach(box => {
             box.addEventListener('mousemove', (e) => {
                 const rect = box.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-                box.style.setProperty('--mouse-x', `${x}px`);
-                box.style.setProperty('--mouse-y', `${y}px`);
+                box.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
+                box.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
             });
         });
 
@@ -631,21 +359,25 @@
             }
         });
 
-        // --- CORE SPLICER UI LOGIC ---
-        function toggleCustomDims() {
-            const preset = document.getElementById('sizePreset').value;
-            const customBox = document.getElementById('customDims');
-            const sliceCountBox = document.getElementById('sliceCountDiv');
-            
-            customBox.style.display = (preset === 'custom') ? 'grid' : 'none';
-            sliceCountBox.style.display = (preset === 'by-count') ? 'block' : 'none';
-        }
-
         let loadedImage = null;
-        document.getElementById('imageInput').addEventListener('change', function(e) {
-            const file = e.target.files[0];
-            if (!file) return;
 
+        // --- DRAG AND DROP INTEGRATION ---
+        const dropZone = document.getElementById('dropZone');
+        const imageInput = document.getElementById('imageInput');
+
+        dropZone.onclick = () => imageInput.click();
+        dropZone.addEventListener('dragover', (e) => { e.preventDefault(); dropZone.style.borderColor = 'var(--primary)'; dropZone.style.background = 'rgba(168, 85, 247, 0.03)'; });
+        dropZone.addEventListener('dragleave', () => { dropZone.style.borderColor = 'var(--border)'; dropZone.style.background = 'rgba(0, 0, 0, 0.2)'; });
+        dropZone.addEventListener('drop', (e) => {
+            e.preventDefault(); dropZone.style.borderColor = 'var(--border)'; dropZone.style.background = 'rgba(0, 0, 0, 0.2)';
+            if (e.dataTransfer.files && e.dataTransfer.files.length > 0) handleFileLoad(e.dataTransfer.files[0]);
+        });
+        imageInput.addEventListener('change', function(e) {
+            if (e.target.files && e.target.files.length > 0) handleFileLoad(e.target.files[0]);
+        });
+
+        function handleFileLoad(file) {
+            if (!file.type.startsWith('image/')) return;
             const reader = new FileReader();
             reader.onload = function(event) {
                 loadedImage = new Image();
@@ -653,12 +385,66 @@
                     document.getElementById('uploadPrompt').innerHTML = `Loaded: <strong>${file.name}</strong>`;
                     document.getElementById('fileInfo').style.display = 'block';
                     document.getElementById('fileInfo').innerText = `SOURCE DETECTED: ${loadedImage.width}x${loadedImage.height}PX`;
+                    analyzeImage(); 
                 };
                 loadedImage.src = event.target.result;
             };
             reader.readAsDataURL(file);
-        });
+        }
 
+        function toggleInputs() {
+            const preset = document.getElementById('sizePreset').value;
+            document.getElementById('customDims').style.display = (preset === 'custom') ? 'grid' : 'none';
+            document.getElementById('sliceCountDiv').style.display = (preset === 'by-count') ? 'block' : 'none';
+            document.getElementById('gridDims').style.display = (preset === 'grid') ? 'grid' : 'none';
+            analyzeImage();
+        }
+
+        // --- DYNAMIC ANALYZER LOGIC ---
+        function analyzeImage() {
+            if (!loadedImage) return;
+
+            const preset = document.getElementById('sizePreset').value;
+            const optimalDiv = document.getElementById('optimalSplices');
+            const warningDiv = document.getElementById('dimensionWarning');
+            
+            warningDiv.style.display = 'none';
+            optimalDiv.style.display = 'none';
+
+            if (preset === 'grid') {
+                const cols = parseInt(document.getElementById('gridCols').value) || 1;
+                const rows = parseInt(document.getElementById('gridRows').value) || 1;
+                if (loadedImage.width % cols !== 0 || loadedImage.height % rows !== 0) {
+                    warningDiv.style.display = 'block';
+                }
+            } else if (preset === 'by-count') {
+                const count = parseInt(document.getElementById('sliceCount').value) || 1;
+                if (loadedImage.width % count !== 0) {
+                    warningDiv.style.display = 'block';
+                }
+            } else {
+                let targetW, targetH;
+                if (preset === 'ig-portrait') { targetW = 1080; targetH = 1350; }
+                else if (preset === 'ig-square') { targetW = 1080; targetH = 1080; }
+                else {
+                    targetW = parseInt(document.getElementById('customW').value) || 1080;
+                    targetH = parseInt(document.getElementById('customH').value) || 1350;
+                }
+
+                if(targetH > 0 && targetW > 0) {
+                    const scalingRatio = targetH / loadedImage.height;
+                    const scaledMasterWidth = Math.floor(loadedImage.width * scalingRatio);
+                    const optimalCount = Math.floor(scaledMasterWidth / targetW);
+                    
+                    if(optimalCount > 0) {
+                        optimalDiv.innerText = `Optimal number of splices: ${optimalCount}`;
+                        optimalDiv.style.display = 'block';
+                    }
+                }
+            }
+        }
+
+        // --- MASTER IMAGE PROCESSING REVOLUTION ---
         function processImage() {
             if (!loadedImage) {
                 document.getElementById('statusMsg').innerHTML = "<span style='color:#ef4444'>SYSTEM ERROR // Please upload an image matrix first.</span>";
@@ -669,25 +455,46 @@
             document.getElementById('outputGallery').innerHTML = "";
 
             const preset = document.getElementById('sizePreset').value;
-            let targetW, targetH, totalSlices, scaledMasterWidth;
+            let targetW, targetH, totalSlices;
 
+            // --- 2D GRID MODE ---
+            if (preset === 'grid') {
+                const cols = parseInt(document.getElementById('gridCols').value) || 1;
+                const rows = parseInt(document.getElementById('gridRows').value) || 1;
+                targetW = loadedImage.width / cols;
+                targetH = loadedImage.height / rows;
+                totalSlices = cols * rows;
+
+                let sliceCount = 0;
+                for (let y = 0; y < rows; y++) {
+                    for (let x = 0; x < cols; x++) {
+                        sliceCount++;
+                        const sliceCanvas = document.createElement('canvas');
+                        sliceCanvas.width = targetW; sliceCanvas.height = targetH;
+                        const sliceCtx = sliceCanvas.getContext('2d');
+                        sliceCtx.imageSmoothingEnabled = true; sliceCtx.imageSmoothingQuality = 'high';
+                        sliceCtx.drawImage(loadedImage, x * targetW, y * targetH, targetW, targetH, 0, 0, targetW, targetH);
+                        outputToGallery(sliceCanvas, sliceCount, totalSlices);
+                    }
+                }
+                document.getElementById('statusMsg').innerHTML = `SUCCESS // Generated a <strong>${cols}x${rows}</strong> Grid (${totalSlices} pieces). <br><span style="font-size:0.8rem;color:var(--text-muted)">Click thumbnails to download.</span>`;
+                return;
+            }
+
+            // --- 1D CAROUSEL MODES ---
+            let scaledMasterWidth;
             if (preset === 'by-count') {
-                // Divides the image evenly by the number provided, maintaining full original height
                 totalSlices = parseInt(document.getElementById('sliceCount').value) || 1;
                 targetH = loadedImage.height;
                 scaledMasterWidth = loadedImage.width;
                 targetW = Math.floor(scaledMasterWidth / totalSlices);
             } else {
-                // Presets and Custom Dims scale the image mathematically to hit exact target heights
-                if (preset === 'ig-portrait') {
-                    targetW = 1080; targetH = 1350;
-                } else if (preset === 'ig-square') {
-                    targetW = 1080; targetH = 1080;
-                } else {
+                if (preset === 'ig-portrait') { targetW = 1080; targetH = 1350; } 
+                else if (preset === 'ig-square') { targetW = 1080; targetH = 1080; } 
+                else {
                     targetW = parseInt(document.getElementById('customW').value) || 1080;
                     targetH = parseInt(document.getElementById('customH').value) || 1350;
                 }
-
                 const scalingRatio = targetH / loadedImage.height;
                 scaledMasterWidth = Math.floor(loadedImage.width * scalingRatio);
                 totalSlices = Math.floor(scaledMasterWidth / targetW);
@@ -699,41 +506,39 @@
             }
 
             const masterCanvas = document.createElement('canvas');
-            masterCanvas.width = scaledMasterWidth;
-            masterCanvas.height = targetH;
+            masterCanvas.width = scaledMasterWidth; masterCanvas.height = targetH;
             const ctx = masterCanvas.getContext('2d');
-            
-            ctx.imageSmoothingEnabled = true;
-            ctx.imageSmoothingQuality = 'high';
+            ctx.imageSmoothingEnabled = true; ctx.imageSmoothingQuality = 'high';
             ctx.drawImage(loadedImage, 0, 0, scaledMasterWidth, targetH);
 
             for (let i = 0; i < totalSlices; i++) {
                 const sliceCanvas = document.createElement('canvas');
-                sliceCanvas.width = targetW;
-                sliceCanvas.height = targetH;
+                sliceCanvas.width = targetW; sliceCanvas.height = targetH;
                 const sliceCtx = sliceCanvas.getContext('2d');
-
                 sliceCtx.drawImage(masterCanvas, i * targetW, 0, targetW, targetH, 0, 0, targetW, targetH);
-                const imgDataUrl = sliceCanvas.toDataURL('image/png');
-
-                const itemDiv = document.createElement('div');
-                itemDiv.className = 'gallery-item';
-                itemDiv.style.animationDelay = `${i * 0.05}s`;
-
-                const link = document.createElement('a');
-                link.href = imgDataUrl;
-                link.download = `InstaSplice_Panel_${i + 1}.png`;
-                link.title = `Click to download Panel ${i + 1}`;
-
-                const img = document.createElement('img');
-                img.src = imgDataUrl;
-
-                link.appendChild(img);
-                itemDiv.appendChild(link);
-                document.getElementById('outputGallery').appendChild(itemDiv);
+                outputToGallery(sliceCanvas, i + 1, totalSlices);
             }
+            document.getElementById('statusMsg').innerHTML = `SUCCESS // Generated <strong>${totalSlices}</strong> Slices. <br><span style="font-size:0.8rem;color:var(--text-muted)">Click thumbnails to download each lossless element.</span>`;
+        }
 
-            document.getElementById('statusMsg').innerHTML = `SUCCESS // Generated <span style="color:var(--primary); font-weight:bold;">${totalSlices}</span> Slices. <br><span style="font-size:0.8rem;">Click thumbnails to download.</span>`;
+        // --- OUTPUT DOM BUILDER ---
+        function outputToGallery(canvasElement, index, total) {
+            const imgDataUrl = canvasElement.toDataURL('image/png');
+            const itemDiv = document.createElement('div');
+            itemDiv.className = 'gallery-item';
+            itemDiv.style.animationDelay = `${(index - 1) * 0.05}s`;
+
+            const link = document.createElement('a');
+            link.href = imgDataUrl;
+            link.download = `InstaSplice_Panel_${index}.png`;
+            link.title = `Click to download Panel ${index} of ${total}`;
+
+            const img = document.createElement('img');
+            img.src = imgDataUrl;
+
+            link.appendChild(img);
+            itemDiv.appendChild(link);
+            document.getElementById('outputGallery').appendChild(itemDiv);
         }
     </script>
 </body>
